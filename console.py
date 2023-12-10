@@ -20,15 +20,17 @@ class HBNBCommand(cmd.Cmd):
     """
     Class HBNBCommand
     """
-    prompt = '(hbnb) '
-    __classes = {
-        'BaseModel': BaseModel,
-        'User': User,
-        'State': State,
-        'City': City,
-        'Amenity':Amenity,
-        'Place':Place,
-        'Review': Review
+
+    prompt = "(hbnb) "
+
+    classes = {
+        "BaseModel": BaseModel,
+        "User": User,
+        "State": State,
+        "City": City,
+        "Amenity": Amenity,
+        "Place": Place,
+        "Review": Review,
     }
 
     def do_quit(self, arg):
@@ -43,21 +45,23 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         """Empty line"""
         pass
-    
+
     def do_create(self, argument):
-            """Creates an instance of BaseModel"""
-            if argument:
-                if argument in self.classes:
-                    # instance = models.base_model.BaseModel()
-                    get_class = getattr(sys.modules[__name__], argument)
-                    instance = get_class()
-                    print(instance.id)
-                    models.storage.save()
-                else:
-                    print("** class doesn't exist **")
+        """
+        Creates an instance of BaseModel
+        """
+        if argument:
+            if argument in self.classes:
+                # instance = models.base_model.BaseModel()
+                get_class = getattr(sys.modules[__name__], argument)
+                instance = get_class()
+                print(instance.id)
+                models.storage.save()
             else:
-                print("** class name missing **")
-            return
+                print("** class doesn't exist **")
+        else:
+            print("** class name missing **")
+        return
 
     def do_show(self, argument):
         """string representation based on the class name and id"""
